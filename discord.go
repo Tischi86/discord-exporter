@@ -145,9 +145,14 @@ func main() {
           }
         }
 
-        for channelId, usersInChannel := range numberOfUsersByChannel {
-          gaugeUsersByChannel.WithLabelValues(getChannelNameById(channelId, widgetData)).Set(usersInChannel)
+        for _, channel := range widgetData.Channels {
+          if _, ok := numberOfUsersByChannel[channel.ID]; ok {
+            gaugeUsersByChannel.WithLabelValues(getChannelNameById(channel.ID, widgetData)).Set(numberOfUsersByChannel[channel.ID])
+          } else {
+            gaugeUsersByChannel.WithLabelValues(getChannelNameById(channel.ID, widgetData)).Set(0)
+          }
         }
+
         gaugeTotalUsers.Set(numberOfTotalUser)
 
         refreshInterval, _ := strconv.Atoi(os.Getenv("REFRESH_INTERVAL"))
