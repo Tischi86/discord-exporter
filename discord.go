@@ -137,6 +137,7 @@ func main() {
 
         numberOfTotalUser = 0
         numberOfUsersByChannel = map[string]float64{}
+        gaugeUsers.Reset()
         for _, element := range widgetData.Members {
           if (len(element.ChannelID) > 0) {
             numberOfTotalUser++
@@ -145,6 +146,7 @@ func main() {
           }
         }
 
+        gaugeUsersByChannel.Reset()
         for _, channel := range widgetData.Channels {
           if _, ok := numberOfUsersByChannel[channel.ID]; ok {
             gaugeUsersByChannel.WithLabelValues(getChannelNameById(channel.ID, widgetData)).Set(numberOfUsersByChannel[channel.ID])
