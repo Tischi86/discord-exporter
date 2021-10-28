@@ -102,7 +102,7 @@ func main() {
 
   go func() {
      for {
-        fmt.Println("Fetching new data from discords API")
+        //fmt.Println("Fetching new data from discords API")
 
         url := fmt.Sprintf("https://discordapp.com/api/guilds/%s/widget.json", os.Getenv("SERVERID"))
         spaceClient := http.Client{
@@ -120,7 +120,7 @@ func main() {
           log.Fatal(getErr)
 	      }
 
-        fmt.Printf("HTTP: %s\n", res.Status)
+        //fmt.Printf("HTTP: %s\n", res.Status)
 
         body, readErr := ioutil.ReadAll(res.Body)
 
